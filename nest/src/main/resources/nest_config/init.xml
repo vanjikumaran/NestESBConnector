@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="init" xmlns="http://ws.apache.org/ns/synapse">
+
+    <parameter name="apiUrl" description="URL of the Nest API" />
+    <parameter name="token" description="Token for the Nest API" />
+
+   <sequence>
+       <property name="uri.var.apiUrl" expression="$func:apiUrl" />
+       <property name="uri.var.token" expression="$func:token" />
+
+        <filter source="boolean(get-property('uri.var.apiUrl'))" regex="false">
+            <then>
+                <property name="uri.var.apiUrl" value="https://firebase-apiserver01-tah01-iad01.dapi.production.nest.com:9553" />
+            </then>
+        </filter>
+
+       <filter source="boolean(get-property('uri.var.token'))" regex="false">
+           <then>
+               <property name="uri.var.token" value="c.Myf0eRufEZiz7cvoH4vpDY8RlRSrNlNdONrpx6iT7ACCAiDE6JqUbUOXa2xedrrRFpOcUqVZTBziXWnCpLxSpMAxnbqWqO87sFulIEWPseoSNQoEDSgnIkojXrQTCy7m6t0GMrCjX6zYNb9B" />
+           </then>
+       </filter>
+
+    </sequence>
+
+</template>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.wso2.carbon:org.wso2.carbon.integration.common.extensions:4.3.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/carbon/org.wso2.carbon.integration.common.extensions/4.3.0-SNAPSHOT/org.wso2.carbon.integration.common.extensions-4.3.0-20141201.183510-355.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/carbon/org.wso2.carbon.integration.common.extensions/4.3.0-SNAPSHOT/org.wso2.carbon.integration.common.extensions-4.3.0-20141201.183510-355-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/carbon/org.wso2.carbon.integration.common.extensions/4.3.0-SNAPSHOT/org.wso2.carbon.integration.common.extensions-4.3.0-20141201.183510-355-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

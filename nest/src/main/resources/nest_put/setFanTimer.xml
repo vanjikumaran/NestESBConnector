@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="setFanTimer" xmlns="http://ws.apache.org/ns/synapse">
+
+    <parameter name="fanTimerStatus" description="Status of fan timer." />
+    <parameter name="deviceId" description="Id of device" />
+    <sequence>
+        <property name="fanTimerStatus" expression="$func:fanTimerStatus" />
+        <property name="uri.var.deviceId" expression="$func:deviceId" />
+
+        <payloadFactory media-type="json">
+            <format>
+                {
+                "fan_timer_active":$1
+                }
+            </format>
+
+            <args>
+                <arg expression="$func:fanTimerStatus" />
+                </args>
+        </payloadFactory>
+        <property name="messageType" value="application/json" scope="axis2" />
+
+
+        <call>
+            <endpoint>
+                <http method="put"
+                      uri-template="{uri.var.apiUrl}/devices/thermostats/{uri.var.deviceId}?auth={uri.var.token}" />
+            </endpoint>
+        </call>
+    </sequence>
+</template>

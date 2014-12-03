@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="nest_getServices"
+       transports="https,http"
+       statistics="disable"
+       trace="disable"
+       startOnLoad="true">
+    <target>
+        <inSequence>
+            <nest.init/>
+            <property name="category" expression="json-eval($.category)"/>
+            <property name="device" expression="json-eval($.device)"/>
+            <property name="deviceId" expression="json-eval($.deviceId)"/>
+            <property name="operation" expression="json-eval($.operation)"/>
+            <property name="structureId" expression="json-eval($.structureId)"/>
+            <nest.getServices>
+                <category>{$ctx:category}</category>
+                <device>{$ctx:device}</device>
+                <deviceId>{$ctx:deviceId}</deviceId>
+                <operation>{$ctx:operation}</operation>
+                <structureId>{$ctx:structureId}</structureId>
+            </nest.getServices>
+            <respond/>
+        </inSequence>
+        <outSequence>
+            <log/>
+            <send/>
+        </outSequence>
+    </target>
+    <description/>
+</proxy>
+                                

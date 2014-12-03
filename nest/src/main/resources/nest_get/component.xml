@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="nest_get" type="synapse/template">
+    <subComponents>
+
+        <component name="getServices">
+            <file>getServices.xml</file>
+            <description>get all services.</description>
+        </component>
+
+    </subComponents>
+</component>

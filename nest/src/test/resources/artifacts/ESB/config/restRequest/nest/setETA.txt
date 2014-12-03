@@ -1,0 +1,6 @@
+{
+"tripID":"myTripHome1024",
+"begin":"2014-12-01T22:42:59.000Z",
+"end":"2014-12-02T23:59:59.000Z",
+"structureId":"k5l5SlveC-k80_7Kb0KyqnBFCCFOo7AV6w6tmpAvfbfehgSlUsc-uw"
+}

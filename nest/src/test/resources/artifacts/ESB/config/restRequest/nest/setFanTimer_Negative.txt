@@ -1,0 +1,4 @@
+{
+"fanTimerStatus":234,
+"deviceId":"ro9jgKB2KhYDo5AWzrgLzMMSoJ03t2br"
+}

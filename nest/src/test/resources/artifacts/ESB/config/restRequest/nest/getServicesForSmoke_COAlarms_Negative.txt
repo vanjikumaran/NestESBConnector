@@ -1,0 +1,6 @@
+{
+"category":"devices",
+"device":"smoke_co_alarms",
+"deviceId":"VhVmm7HOhEcL5sSzblcDOMMSoJ03t2b",
+"operation":"%s"
+}

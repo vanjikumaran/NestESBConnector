@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.wso2.carbon:org.wso2.carbon.user.mgt.stub:4.3.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/carbon/org.wso2.carbon.user.mgt.stub/4.3.0-SNAPSHOT/org.wso2.carbon.user.mgt.stub-4.3.0-20141201.194814-984.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/carbon/org.wso2.carbon.user.mgt.stub/4.3.0-SNAPSHOT/org.wso2.carbon.user.mgt.stub-4.3.0-20141201.194814-984-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/wso2/carbon/org.wso2.carbon.user.mgt.stub/4.3.0-SNAPSHOT/org.wso2.carbon.user.mgt.stub-4.3.0-20141201.194814-984-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

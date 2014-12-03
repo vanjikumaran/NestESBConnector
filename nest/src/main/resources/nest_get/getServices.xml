@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="getServices" xmlns="http://ws.apache.org/ns/synapse">
+
+    <parameter name="category" description="Category" />
+
+
+    <!-- For devices -->
+    <parameter name="device" description="Type of device" />
+    <parameter name="deviceId" description="Id of device" />
+
+    <!-- For structures -->
+    <parameter name="structureId" description="Id of structure" />
+    <parameter name="etaValue" description="ETA value" />
+
+    <!-- For both devices and structures -->
+    <parameter name="operation" description="Get operation" />  <!-- It can be View current temperature, View target temperature etc for thermostats, sView Away state, View postal, zip code for structures -->
+
+    <sequence>
+        <property name="uri.var.category" expression="$func:category" />
+        <property name="uri.var.device" expression="$func:device" />
+        <property name="uri.var.deviceId" expression="$func:deviceId" />
+        <property name="uri.var.structureId" expression="$func:structureId" />
+        <property name="uri.var.operation" expression="$func:operation" />
+        <property name="uri.var.etaValue" expression="$func:etaValue" />
+
+        <switch source="get-property('uri.var.category')">
+            <case regex="devices">
+                <property name="uri.var.param" value="devices"/>
+
+                <filter xpath="(not(get-property('uri.var.device') = '' or (not(string(get-property('uri.var.device'))))))">
+                <then>
+                    <switch source="get-property('uri.var.device')">
+                    <case regex="thermostats|smoke_co_alarms">
+                <property name="uri.var.param"
+                          expression="fn:concat(get-property('uri.var.param'),'/',get-property('uri.var.device'))"/>
+
+                <filter xpath="(not(get-property('uri.var.deviceId') = '' or (not(string(get-property('uri.var.deviceId'))))))">
+                    <then>
+                        <property name="uri.var.param"
+                                  expression="fn:concat(get-property('uri.var.param'),'/',get-property('uri.var.deviceId'))"/>
+
+                        <filter xpath="(not(get-property('uri.var.operation') = '' or (not(string(get-property('uri.var.operation'))))))">
+                            <then>
+
+                                <switch source="get-property('uri.var.operation')">
+                                    <case regex="view_current_temperature_f">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/ambient_temperature_f')"/>
+                                    </case>
+                                    <case regex="view_current_temperature_c">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/ambient_temperature_c')"/>
+                                    </case>
+                                    <case regex="view_target_temperature_f">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/target_temperature_f')"/>
+                                    </case>
+                                    <case regex="view_target_temperature_c">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/target_temperature_c')"/>
+                                    </case>
+                                    <case regex="view_temperature_mode">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/hvac_mode')"/>
+                                    </case>
+                                    <case regex="view_humidity">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/humidity')"/>
+                                    </case>
+                                    <case regex="view_CO_alarm_state">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/co_alarm_state')"/>
+                                    </case>
+                                    <case regex="view_smoke_alarm_state">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/smoke_alarm_state')"/>
+                                    </case>
+                                    <case regex="view_battery_health">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/battery_health')"/>
+                                    </case>
+                                    <case regex="view_manual_test_state">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/is_manual_test_active')"/>
+                                    </case>
+                                    <case regex="view_last_manual_test_status">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/ui_color_state')"/>
+                                    </case>
+                                    <case regex="view_last_manual_test_timestamp">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/last_manual_test_time')"/>
+                                    </case>
+                                    <case regex="view_online_status">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/is_online')"/>
+                                    </case>
+                                    <case regex="view_last_connection_information">
+                                        <property name="uri.var.param"
+                                                  expression="fn:concat(get-property('uri.var.param'),'/last_connection')"/>
+                                    </case>
+                                    <default/>
+                                </switch>
+
+                            </then>
+                        </filter>
+
+                    </then>
+                </filter>
+
+                    </case>
+                    </switch>
+
+                </then>
+                </filter>
+
+            </case>
+            <case regex="structures">
+                <property name="uri.var.param" value="structures"/>
+
+                <filter xpath="(not(get-property('uri.var.structureId') = '' or (not(string(get-property('uri.var.structureId'))))))">
+                <then>
+                <property name="uri.var.param"
+                          expression="fn:concat(get-property('uri.var.param'),'/',get-property('uri.var.structureId'))"/>
+
+                    <filter xpath="(not(get-property('uri.var.operation') = '' or (not(string(get-property('uri.var.operation'))))))">
+                        <then>
+
+                            <switch source="get-property('uri.var.operation')">
+                                <case regex="view_thermostats">
+                                    <property name="uri.var.param"
+                                              expression="fn:concat(get-property('uri.var.param'),'/thermostats')"/>
+                                </case>
+                                <case regex="view_smoke_co_alarms">
+                                    <property name="uri.var.param"
+                                              expression="fn:concat(get-property('uri.var.param'),'/smoke_co_alarms')"/>
+                                </case>
+                                <case regex="view_energy_event_peekstart">
+                                    <property name="uri.var.param"
+                                              expression="fn:concat(get-property('uri.var.param'),'/peak_period_start_time')"/>
+                                </case>
+                                <case regex="view_energy_event_peekend">
+                                    <property name="uri.var.param"
+                                              expression="fn:concat(get-property('uri.var.param'),'/peak_period_end_time')"/>
+                                </case>
+                                <case regex="view_away_state">
+                                    <property name="uri.var.param"
+                                              expression="fn:concat(get-property('uri.var.param'),'/away')"/>
+                                </case>
+                                <case regex="view_postalcode">
+                                    <property name="uri.var.param"
+                                              expression="fn:concat(get-property('uri.var.param'),'/postal_code')"/>
+                                </case>
+                                <default/>
+                            </switch>
+
+                        </then>
+                    </filter>
+
+                </then>
+                </filter>
+
+            </case>
+            <default/>
+        </switch>
+
+        <property name="Content-Type" value="application/json"/>
+
+        <call>
+            <endpoint>
+                <http method="get"
+                      uri-template="{uri.var.apiUrl}/{uri.var.param}?auth={uri.var.token}" />
+            </endpoint>
+        </call>
+    </sequence>
+</template>

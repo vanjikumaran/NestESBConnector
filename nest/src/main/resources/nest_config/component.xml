@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="nest_config" type="synapse/template">
+    <subComponents>
+
+        <component name="init">
+            <file>init.xml</file>
+            <description>init file for nest connector.</description>
+        </component>
+
+
+    </subComponents>
+</component>

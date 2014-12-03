@@ -1,0 +1,4 @@
+{
+"awayState":"home",
+"structureId":"k5l5SlveC-k80_7Kb0KyqnBFCCFOo7AV6w6tmpAvfbfehgSlUsc-uw"
+}
