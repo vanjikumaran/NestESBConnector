@@ -16,6 +16,8 @@ import org.wso2.carbon.mediation.library.stub.MediationLibraryAdminServiceStub;
 import org.wso2.carbon.mediation.library.stub.upload.MediationLibraryUploaderStub;
 
 import javax.activation.DataHandler;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.Properties;
 
@@ -34,11 +36,11 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
 
     private Properties nestConnectorProperties = null;
 
+    private String propertiesFilePath = null;
+
     private String pathToProxiesDirectory = null;
 
     private String pathToRequestsDirectory = null;
-
-    private String accessToken, accessCode;
 
     @BeforeClass(alwaysRun = true)
     public void setEnvironment() throws Exception {
@@ -72,6 +74,7 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
 
         nestConnectorProperties = ConnectorIntegrationUtil.getConnectorConfigProperties(CONNECTOR_NAME);
 
+        propertiesFilePath = repoLocation + nestConnectorProperties.getProperty("propertiesFilePath");
         pathToProxiesDirectory = repoLocation + nestConnectorProperties.getProperty("proxyDirectoryRelativePath");
         pathToRequestsDirectory = repoLocation + nestConnectorProperties.getProperty("requestDirectoryRelativePath");
 
@@ -82,11 +85,45 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
         axis2Client.destroy();
     }
 
+//    /**
+//     * Test case for getAccessToken method.
+//     * For this method, authorization code must be changed in nest.properties file every time.
+//     */
+//    @Test(groups = { "wso2.esb" },priority = 1, description = "nest {getAccessToken} integration test.")
+//    public void testGetAccessToken() throws Exception {
+//
+//        String jsonRequestFilePath = pathToRequestsDirectory + "getAccessToken.txt";
+//        String methodName = "nest_getAccessToken";
+//
+//        final String jsonString = ConnectorIntegrationUtil.getFileContent(jsonRequestFilePath);
+//        String modifiedJsonString = String.format(jsonString, nestConnectorProperties.getProperty("clientId"), nestConnectorProperties.getProperty("clientSecret"), nestConnectorProperties.getProperty("code"));
+//        final String proxyFilePath = "file:///" + pathToProxiesDirectory + methodName + ".xml";
+//        proxyAdmin.addProxyService(new DataHandler(new URL(proxyFilePath)));
+//
+//        try {
+//            JSONObject responseConnector = ConnectorIntegrationUtil.sendRequest("POST", getProxyServiceURL(methodName), modifiedJsonString);
+//            if(responseConnector.has("access_token") && !responseConnector.getString("access_token").equals("")) {
+//                FileInputStream in = new FileInputStream(propertiesFilePath + "nest.properties");
+//                Properties props = new Properties();
+//                props.load(in);
+//                in.close();
+//
+//                FileOutputStream out = new FileOutputStream(propertiesFilePath + "nest.properties");
+//                props.setProperty("token", responseConnector.getString("access_token"));
+//                props.store(out, null);
+//                out.close();
+//            }
+//
+//            Assert.assertTrue(responseConnector.has("access_token"));
+//        } finally {
+//            proxyAdmin.deleteProxy(methodName);
+//        }
+//    }
 
      /**
       * Test case for getServices(view_current_temperature_f) method.
      */
-    @Test(groups = { "wso2.esb" }, description = "nest {getServices} integration test.")
+    @Test(groups = { "wso2.esb" }, priority = 2, description = "nest {getServices} integration test.")
     public void testViewCurrentTemperature_F() throws Exception {
 
         String jsonRequestFilePath = pathToRequestsDirectory + "getServicesForThermostats.txt";
@@ -664,7 +701,7 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
             JSONObject responseConnector = ConnectorIntegrationUtil.sendRequest("POST", getProxyServiceURL(methodName), jsonString);
 
             JSONObject jo=new JSONObject(jsonString);
-            Assert.assertTrue(responseConnector.getString("error").equals("Cannot change fan_timer_active while structure is away") || responseConnector.getString("fan_timer_active").equals(jo.getString("fanTimerStatus").toString()));
+            Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("Cannot change fan_timer_active while structure is away")) || responseConnector.getString("fan_timer_active").equals(jo.getString("fanTimerStatus").toString()));
 
         } finally {
             proxyAdmin.deleteProxy(methodName);
@@ -712,7 +749,7 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
             JSONObject responseConnector = ConnectorIntegrationUtil.sendRequest("POST", getProxyServiceURL(methodName), jsonString);
 
             JSONObject jo=new JSONObject(jsonString);
-            Assert.assertTrue(responseConnector.getString("error").equals("No write permission(s) for field(s): fan_timer_timeout") || responseConnector.getString("fan_timer_timeout").equals(jo.getString("timeout").toString()));
+            Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("No write permission(s) for field(s): fan_timer_timeout")) || responseConnector.getString("fan_timer_timeout").equals(jo.getString("timeout").toString()));
 
 
         } finally {
@@ -907,7 +944,7 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
           JSONObject jo=new JSONObject(jsonString);
           JSONObject o=new JSONObject("{\"eta\":{\"trip_id\":\"myTripHome1024\",\"begin\":\"2014-11-01T22:42:59.000Z\",\"end\":\"2014-11-01T23:42:59.000Z\"}}").getJSONObject("eta");
 
-      Assert.assertTrue(responseConnector.getString("error").equals("permission denied") || (responseConnector.getJSONObject("eta").getString("trip_id").equals(jo.getString("tripId").toString()) && o.getString("estimated_arrival_window_begin").equals(jo.getString("begin").toString()) && o.getString("estimated_arrival_window_end").equals(jo.getString("end").toString())));
+      Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("permission denied")) || (responseConnector.getJSONObject("eta").getString("trip_id").equals(jo.getString("tripId").toString()) && o.getString("estimated_arrival_window_begin").equals(jo.getString("begin").toString()) && o.getString("estimated_arrival_window_end").equals(jo.getString("end").toString())));
 
     } finally {
           proxyAdmin.deleteProxy(methodName);

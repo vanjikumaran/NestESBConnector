@@ -16,7 +16,7 @@
 
        <filter source="boolean(get-property('uri.var.token'))" regex="false">
            <then>
-               <property name="uri.var.token" value="c.Myf0eRufEZiz7cvoH4vpDY8RlRSrNlNdONrpx6iT7ACCAiDE6JqUbUOXa2xedrrRFpOcUqVZTBziXWnCpLxSpMAxnbqWqO87sFulIEWPseoSNQoEDSgnIkojXrQTCy7m6t0GMrCjX6zYNb9B" />
+               <property name="uri.var.token" value="c.LDL7oFAmeJgK5L7fIfxpUPF6YFfjbtNjCuGeZM04FFN5TEOm2xWU9yVuxzKijdcsDn6VEppXdvNXFSqyvgt9adjZ17hO95R9dNgZoLwpuf6e7RWthvwww9hRLiqnPCkXoNj0lLmDrNbozXLj" />
            </then>
        </filter>
 

@@ -3,6 +3,7 @@
     <component name="nest" package="org.wso2.carbon.connector" >
 
         <dependency component="nest_config"/>
+        <dependency component="nest_authorization"/>
         <dependency component="nest_put"/>
         <dependency component="nest_get"/>
 

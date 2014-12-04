@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="getAccessToken" xmlns="http://ws.apache.org/ns/synapse">
+
+    <parameter name="clientId" description="Client ID Nest API" />
+    <parameter name="clientSecret" description="Client secret Nest API" />
+    <parameter name="code" description="Code for the access token" />
+
+   <sequence>
+       <property name="uri.var.clientId" expression="$func:clientId" />
+       <property name="uri.var.clientSecret" expression="$func:clientSecret" />
+       <property name="uri.var.code" expression="$func:code" />
+
+
+       <property name="Content-Type" value="application/json"/>
+       <call>
+           <endpoint>
+               <http method="post"
+                     uri-template="https://api.home.nest.com/oauth2/access_token?client_id={uri.var.clientId}&amp;code={uri.var.code}&amp;client_secret={uri.var.clientSecret}&amp;grant_type=authorization_code" />
+           </endpoint>
+       </call>
+
+       <filter source="$axis2:HTTP_SC" regex="[2][0][0]">
+           <then>
+               <property name="uri.var.token" expression="json-eval($.token)" />
+           </then>
+       </filter>
+   </sequence>
+
+</template>
