@@ -7,11 +7,6 @@
             <description>set fan timer.</description>
         </component>
 
-        <component name="setFanTimerTimeout">
-            <file>setFanTimerTimeout.xml</file>
-            <description>set fan timer timeout.</description>
-        </component>
-
         <component name="setTargetTemperature">
             <file>setTargetTemperature.xml</file>
             <description>set target temperature.</description>

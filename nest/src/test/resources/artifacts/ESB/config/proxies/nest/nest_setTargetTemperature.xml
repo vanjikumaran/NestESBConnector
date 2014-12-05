@@ -9,9 +9,11 @@
         <inSequence>
             <nest.init/>
             <property name="targetTemperature" expression="json-eval($.targetTemperature)"/>
+            <property name="scale" expression="json-eval($.scale)"/>
             <property name="deviceId" expression="json-eval($.deviceId)"/>
             <nest.setTargetTemperature>
                 <targetTemperature>{$ctx:targetTemperature}</targetTemperature>
+                <scale>{$ctx:scale}</scale>
                 <deviceId>{$ctx:deviceId}</deviceId>
             </nest.setTargetTemperature>
             <respond/>

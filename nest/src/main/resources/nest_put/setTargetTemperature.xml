@@ -2,22 +2,39 @@
 <template name="setTargetTemperature" xmlns="http://ws.apache.org/ns/synapse">
 
     <parameter name="targetTemperature" description="Target temperature." />
+    <parameter name="scale" description="Temperature scale" />
     <parameter name="deviceId" description="Id of device" />
     <sequence>
-        <property name="targetTemperature" expression="$func:targetTemperature" />
+        <property name="uri.var.targetTemperature" expression="$func:targetTemperature" />
+        <property name="uri.var.scale" expression="$func:scale" />
         <property name="uri.var.deviceId" expression="$func:deviceId" />
 
         <payloadFactory media-type="json">
             <format>
-                {
-                "target_temperature_f":$1
-                }
+                <request xmlns="" method="setTargetTemperature">
+                </request>
             </format>
-
-            <args>
-                <arg expression="$func:targetTemperature" />
-                </args>
         </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                   //request body param variables
+                    var targetTemperature = mc.getProperty('uri.var.targetTemperature');
+                    var scale = mc.getProperty('uri.var.scale');
+
+                    //Get the existing payload
+                    var payload = mc.getPayloadXML();
+
+                    if (scale.toLowerCase() == "f") {
+                    payload.target_temperature_f = targetTemperature;
+                    }
+                      if (scale.toLowerCase() == "c") {
+                    payload.target_temperature_c = targetTemperature;
+                    }
+
+                    //Set the newly constructed payload
+                    mc.setPayloadXML(payload);
+            ]]>
+        </script>
         <property name="messageType" value="application/json" scope="axis2" />
 
 

@@ -1,4 +1,5 @@
 {
-"targetTemperature":74,
+"targetTemperature":24,
+"scale":"C",
 "deviceId":"ro9jgKB2KhYDo5AWzrgLzMMSoJ03t2br"
 }
