@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template name="setTargetTemperature" xmlns="http://ws.apache.org/ns/synapse">
-
-    <parameter name="targetTemperature" description="Target temperature." />
-    <parameter name="scale" description="Temperature scale" />
-    <parameter name="deviceId" description="Id of device" />
+    <parameter name="targetTemperature" description="Target temperature."/>
+    <parameter name="scale" description="Temperature scale"/>
+    <parameter name="deviceId" description="Id of device"/>
     <sequence>
-        <property name="uri.var.targetTemperature" expression="$func:targetTemperature" />
-        <property name="uri.var.scale" expression="$func:scale" />
-        <property name="uri.var.deviceId" expression="$func:deviceId" />
-
+        <property name="uri.var.targetTemperature" expression="$func:targetTemperature"/>
+        <property name="uri.var.scale" expression="$func:scale"/>
+        <property name="uri.var.deviceId" expression="$func:deviceId"/>
         <payloadFactory media-type="json">
             <format>
                 <request xmlns="" method="setTargetTemperature">
@@ -35,13 +33,11 @@
                     mc.setPayloadXML(payload);
             ]]>
         </script>
-        <property name="messageType" value="application/json" scope="axis2" />
-
-
+        <property name="messageType" value="application/json" scope="axis2"/>
         <call>
             <endpoint>
                 <http method="put"
-                      uri-template="{uri.var.apiUrl}/devices/thermostats/{uri.var.deviceId}?auth={uri.var.token}" />
+                      uri-template="{uri.var.apiUrl}/devices/thermostats/{uri.var.deviceId}?auth={uri.var.token}"/>
             </endpoint>
         </call>
     </sequence>

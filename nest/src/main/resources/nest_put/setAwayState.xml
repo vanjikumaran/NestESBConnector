@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template name="setAwayState" xmlns="http://ws.apache.org/ns/synapse">
-
-    <parameter name="awayState" description="Away state." />
-    <parameter name="structureId" description="Structure ID" />
+    <parameter name="awayState" description="Away state."/>
+    <parameter name="structureId" description="Structure ID"/>
     <sequence>
-        <property name="awayState" expression="$func:awayState" />
-        <property name="uri.var.structureId" expression="$func:structureId" />
-
+        <property name="awayState" expression="$func:awayState"/>
+        <property name="uri.var.structureId" expression="$func:structureId"/>
         <payloadFactory media-type="json">
             <format>
                 {
                 "away":"$1"
                 }
             </format>
-
             <args>
-                <arg expression="$func:awayState" />
-                </args>
+                <arg expression="$func:awayState"/>
+            </args>
         </payloadFactory>
-        <property name="messageType" value="application/json" scope="axis2" />
-
-
+        <property name="messageType" value="application/json" scope="axis2"/>
         <call>
             <endpoint>
                 <http method="put"
-                      uri-template="{uri.var.apiUrl}/structures/{uri.var.structureId}?auth={uri.var.token}" />
+                      uri-template="{uri.var.apiUrl}/structures/{uri.var.structureId}?auth={uri.var.token}"/>
             </endpoint>
         </call>
     </sequence>

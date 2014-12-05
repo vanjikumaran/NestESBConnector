@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="nest_put" type="synapse/template">
     <subComponents>
-
         <component name="setFanTimer">
             <file>setFanTimer.xml</file>
             <description>set fan timer.</description>
         </component>
-
         <component name="setTargetTemperature">
             <file>setTargetTemperature.xml</file>
             <description>set target temperature.</description>
         </component>
-
         <component name="setTemperatureMode">
             <file>setTemperatureMode.xml</file>
             <description>set temperature mode.</description>
         </component>
-
         <component name="setAwayState">
             <file>setAwayState.xml</file>
             <description>set away state.</description>
         </component>
-
         <component name="setETA">
             <file>setETA.xml</file>
             <description>set ETA.</description>

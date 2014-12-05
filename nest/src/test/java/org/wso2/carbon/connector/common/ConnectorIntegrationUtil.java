@@ -107,12 +107,13 @@ public class ConnectorIntegrationUtil {
 
         return responseCode;
     }
-    public static String sendRestRequest( String httpMethod, String parameters)
-            throws IOException, NoSuchAlgorithmException, InvalidKeyException, JSONException {
-        Properties connectorProperties= getConnectorConfigProperties("nest");
-            String url = connectorProperties.getProperty("apiUrl")+"/"+parameters+"?auth="+connectorProperties.getProperty("token");
 
-        return sendRequest_String(httpMethod,url,null);
+    public static String sendRestRequest(String httpMethod, String parameters)
+            throws IOException, NoSuchAlgorithmException, InvalidKeyException, JSONException {
+        Properties connectorProperties = getConnectorConfigProperties("nest");
+        String url = connectorProperties.getProperty("apiUrl") + "/" + parameters + "?auth=" + connectorProperties.getProperty("token");
+
+        return sendRequest_String(httpMethod, url, null);
 
     }
 
@@ -122,14 +123,14 @@ public class ConnectorIntegrationUtil {
         URLConnection con = new URL(addUrl).openConnection();
         HttpURLConnection connection = (HttpURLConnection) con;
         connection.setRequestMethod(httpMethod);
-        if(!httpMethod.equals("GET")){
+        if (!httpMethod.equals("GET")) {
             connection.setDoOutput(true);
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/json;charset=" + charset);
             OutputStream output = null;
             try {
                 output = connection.getOutputStream();
-                if(query!=null){
+                if (query != null) {
                     output.write(query.getBytes(charset));
                 }
             } finally {
@@ -169,14 +170,14 @@ public class ConnectorIntegrationUtil {
         URLConnection con = new URL(addUrl).openConnection();
         HttpURLConnection connection = (HttpURLConnection) con;
         connection.setRequestMethod(httpMethod);
-        if(!httpMethod.equals("GET")){
+        if (!httpMethod.equals("GET")) {
             connection.setDoOutput(true);
             connection.setRequestProperty("Accept-Charset", charset);
             connection.setRequestProperty("Content-Type", "application/json;charset=" + charset);
             OutputStream output = null;
             try {
                 output = connection.getOutputStream();
-                if(query!=null){
+                if (query != null) {
                     output.write(query.getBytes(charset));
                 }
             } finally {
