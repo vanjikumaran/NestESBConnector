@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template name="setFanTimer" xmlns="http://ws.apache.org/ns/synapse">
-    <parameter name="fanTimerStatus" description="Status of fan timer."/>
+    <parameter name="fanTimerState" description="State of fan timer."/>
     <parameter name="deviceId" description="Id of device"/>
     <sequence>
-        <property name="fanTimerStatus" expression="$func:fanTimerStatus"/>
+        <property name="fanTimerState" expression="$func:fanTimerState"/>
         <property name="uri.var.deviceId" expression="$func:deviceId"/>
         <payloadFactory media-type="json">
             <format>
@@ -12,7 +12,7 @@
                 }
             </format>
             <args>
-                <arg expression="$func:fanTimerStatus"/>
+                <arg expression="$func:fanTimerState"/>
             </args>
         </payloadFactory>
         <property name="messageType" value="application/json" scope="axis2"/>

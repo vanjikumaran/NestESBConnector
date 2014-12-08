@@ -8,12 +8,12 @@
     <target>
         <inSequence>
             <nest.init/>
-            <property name="tripID" expression="json-eval($.tripID)"/>
+            <property name="tripId" expression="json-eval($.tripId)"/>
             <property name="begin" expression="json-eval($.begin)"/>
             <property name="end" expression="json-eval($.end)"/>
             <property name="structureId" expression="json-eval($.structureId)"/>
             <nest.setETA>
-                <tripID>{$ctx:tripID}</tripID>
+                <tripId>{$ctx:tripId}</tripId>
                 <begin>{$ctx:begin}</begin>
                 <end>{$ctx:end}</end>
                 <structureId>{$ctx:structureId}</structureId>

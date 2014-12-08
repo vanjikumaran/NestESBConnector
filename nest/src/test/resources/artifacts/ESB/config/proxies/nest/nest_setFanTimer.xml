@@ -8,10 +8,10 @@
     <target>
         <inSequence>
             <nest.init/>
-            <property name="fanTimerStatus" expression="json-eval($.fanTimerStatus)"/>
+            <property name="fanTimerState" expression="json-eval($.fanTimerState)"/>
             <property name="deviceId" expression="json-eval($.deviceId)"/>
             <nest.setFanTimer>
-                <fanTimerStatus>{$ctx:fanTimerStatus}</fanTimerStatus>
+                <fanTimerState>{$ctx:fanTimerState}</fanTimerState>
                 <deviceId>{$ctx:deviceId}</deviceId>
             </nest.setFanTimer>
             <respond/>

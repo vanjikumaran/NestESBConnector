@@ -541,7 +541,6 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
         proxyAdmin.addProxyService(new DataHandler(new URL(proxyFilePath)));
         try {
             String responseConnector = ConnectorIntegrationUtil.sendRequest_String("POST", getProxyServiceURL(methodName), modifiedJsonString);
-
             String httpMethod = "GET";
             JSONObject jo = new JSONObject(jsonString);
             String parameters = "structures/" + jo.getString("structureId") + "/away";
@@ -612,7 +611,7 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
             JSONObject responseConnector = ConnectorIntegrationUtil.sendRequest("POST", getProxyServiceURL(methodName), jsonString);
 
             JSONObject jo = new JSONObject(jsonString);
-            Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("Cannot change fan_timer_active while structure is away")) || responseConnector.getString("fan_timer_active").equals(jo.getString("fanTimerStatus").toString()));
+            Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("Cannot change fan_timer_active while structure is away")) || responseConnector.getString("fan_timer_active").equals(jo.getString("fanTimerState").toString()));
         } finally {
             proxyAdmin.deleteProxy(methodName);
         }
@@ -770,7 +769,7 @@ public class NestConnectorIntegrationTest extends ESBIntegrationTest {
             JSONObject jo = new JSONObject(jsonString);
             JSONObject o = new JSONObject("{\"eta\":{\"trip_id\":\"myTripHome1024\",\"begin\":\"2014-11-01T22:42:59.000Z\",\"end\":\"2014-11-01T23:42:59.000Z\"}}").getJSONObject("eta");
 
-            Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("permission denied")) || (responseConnector.getJSONObject("eta").getString("trip_id").equals(jo.getString("tripId").toString()) && o.getString("estimated_arrival_window_begin").equals(jo.getString("begin").toString()) && o.getString("estimated_arrival_window_end").equals(jo.getString("end").toString())));
+            Assert.assertTrue((responseConnector.has("error") && responseConnector.getString("error").equals("Not in away mode")) || (responseConnector.getJSONObject("eta").getString("trip_id").equals(jo.getString("tripId").toString()) && o.getString("estimated_arrival_window_begin").equals(jo.getString("begin").toString()) && o.getString("estimated_arrival_window_end").equals(jo.getString("end").toString())));
 
         } finally {
             proxyAdmin.deleteProxy(methodName);

@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <template name="setETA" xmlns="http://ws.apache.org/ns/synapse">
-    <parameter name="tripID" description="Trip ID."/>
+    <parameter name="tripId" description="Trip ID."/>
     <parameter name="begin" description="Estimated arrival window beginning time"/>
     <parameter name="end" description="Estimated arrival window ending time"/>
     <parameter name="structureId" description="Structure ID"/>
     <sequence>
-        <property name="tripID" expression="$func:tripID"/>
+        <property name="tripId" expression="$func:tripId"/>
         <property name="begin" expression="$func:begin"/>
         <property name="end" expression="$func:end"/>
         <property name="uri.var.structureId" expression="$func:structureId"/>
         <payloadFactory media-type="json">
             <format>
                 {
-                "eta": {
-                "trip_id": "$1" ,
-                "estimated_arrival_window_begin": "$2" ,
+                "trip_id": "$1",
+                "estimated_arrival_window_begin": "$2",
                 "estimated_arrival_window_end": "$3"
-                }
                 }
             </format>
             <args>
-                <arg expression="$func:tripID"/>
+                <arg expression="$func:tripId"/>
                 <arg expression="$func:begin"/>
-                >
                 <arg expression="$func:end"/>
             </args>
         </payloadFactory>
@@ -30,7 +27,7 @@
         <call>
             <endpoint>
                 <http method="put"
-                      uri-template="{uri.var.apiUrl}/structures/{uri.var.structureId}?auth={uri.var.token}"/>
+                      uri-template="{uri.var.apiUrl}/structures/{uri.var.structureId}/eta?auth={uri.var.token}"/>
             </endpoint>
         </call>
     </sequence>
